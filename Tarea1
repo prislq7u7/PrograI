@@ -1,0 +1,290 @@
+import java.util.Random;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+public class Tarea {
+     
+     //VARIABLES QUE NECESITO QUE CAMBIEN PERMANENTEMENTE//
+     private static String alldinos="TTTTTTTTDDDDDDDDAAAAAAAABBBBBBBBCCCCCCCCEEEEEEEE";
+     private static String j1bs="Bosque de la Semejanza - "; 
+     private static String j1pd="Prado de la Diferencia - ";
+     private static String j1pa="Pradera del Amor - ";
+     private static String j1tf="Trio Frondoso - ";
+     private static String j1rs="Rey de la Selva - ";
+     private static String j1is="Isla Solitaria - ";
+     private static String j1r="Rio - ";
+     private static String j2bs="Bosque de la Semejanza - ";
+     private static String j2pd="Prado de la Diferencia - ";
+     private static String j2pa="Pradera del Amor - ";
+     private static String j2tf="Trio Frondoso - ";
+     private static String j2rs="Rey de la Selva - ";
+     private static String j2is="Isla Solitaria - ";
+     private static String j2r="Rio - ";
+     
+     public static void main(String[] args) {
+          System.out.println("⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆.~RAWR!!~Bienvenido a ~grrrr~ Draftosaurus ~RAWR!!~⋆｡°✩ ⋆?｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆."+"\n");      
+          int contador = 1;
+          while(contador<3){
+           System.out.print("Partida #"+contador+"\n");
+           correjuego();
+           contador++;
+          }
+        int punt_j1 = calcuPuntosJ1();
+        System.out.println("Puntos J1: " + punt_j1);
+        int punt_j2 = calcuPuntosJ2();
+        System.out.println("Puntos J2: " + punt_j2);
+        if (punt_j1>punt_j2){
+            System.out.println("⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆.~RAWR!!~GANA ~grrrr~ JUGADOR 1. FELICIDADES! ~grrrr~ ~RAWR!!~⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆."+"\n");
+        }
+        else if (punt_j1<punt_j2){
+            System.out.println("⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆.~RAWR!!~GANA ~grrrr~ JUGADOR 2. FELICIDADES! ~grrrr~ ~RAWR!!~⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆.");
+        }
+        else if (punt_j1==punt_j2){
+            System.out.println("⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆.~RAWR!!~FUE UN EMPATE!~grrrr~ FUE UN EMPATE! FELICIDADES A LOS DOS! ~grrrr~ ~RAWR!!~⋆｡°✩ ⋆｡˚⋆˙‧₊✩₊‧˙⋆˚｡⋆ ✩°｡⋆."+"\n");
+        }
+     }
+     
+     //METODO PARA TENER 2 RONDAS //
+     public static void correjuego(){
+          String m1=""; String m2="";
+          repartir(m1,m2);
+     }
+     
+     //METODO PARA REPARTIR DINOSAURIOS//
+     public  static String repartir (String m1, String m2){
+          Random random=new Random();
+            for(int mano=0;mano<2;mano++){
+                   String manotemp="";
+                   for(int i=0;i<6;i++){
+                        int ii = random.nextInt(alldinos.length());
+                        char dinorandom = alldinos.charAt(ii);
+                        manotemp+=dinorandom;
+                        alldinos = alldinos.substring(0, ii) + alldinos.substring(ii + 1);
+                    }
+                   if(mano%2!=0){
+                       m1=manotemp;
+                   }else if(mano%2==0){
+                       m2=manotemp;
+                    }
+           }
+       parques(m1,m2);
+       return alldinos;
+    }
+     
+
+ public  static void parques (String m1, String m2){
+       Scanner in=new Scanner(System.in);
+    
+    try{ 
+       while(!m2.equals("")){ 
+            String bs=""; String pd="";String  pa="";String tf="";String rs="";String is="";String r="";
+            String mn="";
+            String mntmp="";
+            String jugador="";
+            for(int turno=1;turno<=12;turno++){
+                 if(turno%2!=0){
+                      bs=j1bs;pd=j1pd;pa=j1pa;tf=j1tf;rs=j1rs;is=j1is;r=j1r;
+                      mn=m1;
+                      jugador="Jugador 1";
+                 }else if(turno%2==0){
+                      bs=j2bs;pd=j2pd;pa=j2pa;tf=j2tf;rs=j2rs;is=j2is;r=j2r;
+                      mn=m2;
+                      jugador="Jugador 2";
+                }
+                 System.out.println("Es el turno de: "+jugador+". Qué dinosaurio de su mano desea agregar a su parque? Por favor responda con el numero correspondiente a la opcion."+"\n");
+                 for(int dnemn=0;dnemn<mn.length();dnemn++){
+                      System.out.println(dnemn+") "+mn.charAt(dnemn));
+                }
+                  System.out.print("\n");
+                  
+                  int dno=in.nextInt();
+                 
+                     System.out.println("\n"+"En qué espacio de su parque quiere agregar el dinosaurio? Por favor responda con el numero correspondiente a la opcion."+"\n");
+                     System.out.print("0) "+bs+"\n"+"1) "+pd+"\n"+"2) "+pa+"\n"+"3) "+tf+"\n"+"4) "+rs+"\n"+"5) "+is+"\n"+"6) "+r+"\n"+"\n");
+                     int map=in.nextInt();
+                     
+                     if(map==0)bs+=mn.charAt(dno);
+                     if(map==1)pd+=mn.charAt(dno);
+                     if(map==2)pa+=mn.charAt(dno);
+                     if(map==3)tf+=mn.charAt(dno);
+                     if(map==4)rs+=mn.charAt(dno);
+                     if(map==5)is+=mn.charAt(dno);
+                     if(map==6)r+=mn.charAt(dno);
+                 if(turno%2==0){
+                  m2 = m2.substring(0, dno) + m2.substring(dno + 1);mntmp=m1;m1=m2;m2=mntmp;
+                  j2bs=bs;j2pd=pd;j2pa=pa;j2tf=tf;j2rs=rs;j2is=is;j2r=r;
+                }else{
+                  m1 = m1.substring(0, dno) + m1.substring(dno +1);
+                  j1bs=bs;j1pd=pd;j1pa=pa;j1tf=tf;j1rs=rs;j1is=is;j1r=r;
+                }
+                 System.out.print("\n"+"☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★"+"\n");
+                 System.out.print("Ahora su parque se ve asi: ");
+                 System.out.print(bs+"\n"+pd+"\n"+pa+"\n"+tf+"\n"+rs+"\n"+is+"\n"+r+"\n");
+                 System.out.println("☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★☆⋆｡𖦹°‧★"+"\n");
+            }
+       }
+    }catch(InputMismatchException eror){
+        System.out.println("Debe digitar el número relacionado al dato que desea colocar");
+    }
+  }
+  
+   public static int calcuPuntosJ1(){
+        int puntos = 0;
+        //Bosque de la semejanza
+        if (j1bs.length() == 1){
+            puntos = puntos + 2;
+        }
+        else if (j1bs.length() == 2){
+            puntos = puntos + 4;
+        }
+        else if (j1bs.length() == 3){
+            puntos = puntos + 8;
+        }
+        else if (j1bs.length() == 4){
+            puntos = puntos + 12;
+        }
+        else if (j1bs.length() == 5){
+            puntos = puntos + 18;
+        }
+        else if (j1bs.length() == 6){
+            puntos = puntos + 24;
+        }
+
+        //Bosque de la Diferencia
+        if (j1pd.length() == 1){
+            puntos = puntos + 1;
+        }
+        else if (j1pd.length() == 2){
+            puntos = puntos + 3;
+        }
+        else if (j1pd.length() == 3){
+            puntos = puntos + 6;
+        }
+        else if (j1pd.length() == 4){
+            puntos = puntos + 10;
+        }
+        else if (j1pd.length() == 5){
+            puntos = puntos + 15;
+        }
+        else if (j1pd.length() == 6){
+            puntos = puntos + 21;
+        }
+        
+        //Pradera
+        puntos += calcuPraderaAmor(j1pa);
+        
+        //Trio Frondoso
+        if (j1tf.length() == 3){
+            puntos = puntos + 7;
+        }
+        
+        //Rio
+        int cantidad_rio = j1r.length();
+        puntos = puntos + (cantidad_rio);
+
+        return(puntos);
+    }
+    
+    public static int calcuPuntosJ2(){
+        int puntos = 0;
+        //Bosque Semejanza
+        if (j2bs.length() == 1){
+            puntos = puntos + 2;
+        }
+        else if (j2bs.length() == 2){
+            puntos = puntos + 4;
+        }
+        else if (j2bs.length() == 3){
+            puntos = puntos + 8;
+        }
+        else if (j2bs.length() == 4){
+            puntos = puntos + 12;
+        }
+        else if (j2bs.length() == 5){
+            puntos = puntos + 18;
+        }
+        else if (j2bs.length() == 6){
+            puntos = puntos + 24;
+        }
+
+        //Bosque Diferencia
+        if (j2pd.length() == 1){
+            puntos = puntos + 1;
+        }
+        else if (j2pd.length() == 2){
+            puntos = puntos + 3;
+        }
+        else if (j2pd.length() == 3){
+            puntos = puntos + 6;
+        }
+        else if (j2pd.length() == 4){
+            puntos = puntos + 10;
+        }
+        else if (j2pd.length() == 5){
+            puntos = puntos + 15;
+        }
+        else if (j2pd.length() == 6){
+            puntos = puntos + 21;
+        }
+        
+        //Pradera
+        puntos += calcuPraderaAmor(j2pa);
+
+        //Rio
+        int cant_rio = j2r.length();
+        puntos = puntos + (cant_rio);
+        
+
+        return(puntos);
+    }
+    
+    //Calcular los puntos en pradera del amor
+    public static int calcuPraderaAmor(String espacio) {
+
+        int cantV = 0;
+        int cantD = 0;
+        int cantA = 0;
+        int cantT = 0;
+        int cantB = 0;
+        int cantS = 0;
+        
+        int puntos = 0;
+
+        for (int i = 0; i < espacio.length(); i++) {
+            char dino = espacio.charAt(i);
+            switch (dino) {
+                case ('v'): {
+                    cantT++;
+                    break;
+                }
+                case ('d'): {
+                    cantV++;
+                    break;
+                }
+                case ('a'): {
+                    cantA++;
+                    break;
+                }
+                case ('s'): {
+                    cantD++;
+                    break;
+                }
+                case ('t'): {
+                    cantB++;
+                    break;
+                }
+                case ('b'): {
+                    cantS++;
+                    break;
+                }
+            }
+        }
+        puntos += (cantA / 2) * 5;
+        puntos += (cantD / 2) * 5;
+        puntos += (cantT / 2) * 5;
+        puntos += (cantV / 2) * 5;
+        puntos += (cantB / 2) * 5;
+        puntos += (cantS / 2) * 5;
+
+        return puntos;
+    }
+}
